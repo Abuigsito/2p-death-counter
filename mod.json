@@ -8,9 +8,19 @@
 	},
 	"id": "abuigsito.2p_death_counter",
 	"name": "2P Death Counter",
-	"version": "v1.0.0-beta.2",
+	"version": "v1.0.0-beta",
 	"developer": "Abuigsito",
 	"description": "This mod counts when one of the player dies!",
+	"issues": {
+		"info": "If you find any bugs or have suggestions, please report them on the mod's GitHub page.",
+		"url": "https://github.com/Abuigsito/2p-death-counter/issues"
+	},
+	"links": {
+		"source": "https://github.com/Abuigsito/2p-death-counter"
+	},
+	"dependencies":{
+		"geode.node-ids": "v1.20.1"
+	},
 	"tags": [
 		"interface",
 		"enhancement"
