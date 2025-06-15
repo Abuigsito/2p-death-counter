@@ -47,34 +47,34 @@
 			"XpositionPlayer1":{
 				"type": "float",
 				"name": "Position X",
-				"default": 490,
-				"description": "X position of the first player's counter on the screen.",
-				"min": 5,
-				"max": 555,
+				"default": 0.85,
+				"description": "Horizontal position of the first player's counter (0 = left, 1 = right).",
+				"min": 0,
+				"max": 1,
 				"control": {
 					"arrows": true,
-					"arrow-step": 2,
+					"arrow-step": 0.01,
 					"big-arrows": true,
-					"big-arrow-step": 10,
+					"big-arrow-step": 0.1,
 					"slider": true,
-					"slider-step": 1,
+					"slider-step": 0.01,
 					"input": true
 				}
 			},
 			"YpositionPlayer1":{
 				"type": "float",
 				"name": "Position Y",
-				"default": 290,
-				"description": "Y position of the first player's counter on the screen.",
-				"min": 10,
-				"max": 310,
+				"default": 0.90,
+				"description": "Vertical position of the first player's counter (0 = bottom, 1 = top).",
+				"min": 0,
+				"max": 1,
 				"control": {
 					"arrows": true,
-					"arrow-step": 2,
+					"arrow-step": 0.01,
 					"big-arrows": true,
-					"big-arrow-step": 10,
+					"big-arrow-step": 0.1,
 					"slider": true,
-					"slider-step": 1,
+					"slider-step": 0.01,
 					"input": true
 				}
 			},
@@ -97,34 +97,34 @@
 				"XpositionPlayer2":{
 				"type": "float",
 				"name": "Position X",
-				"default": 490,
-				"description": "X position of the second player's counter on the screen.",
-				"min": 5,
-				"max": 555,
+				"default": 0.85,
+				"description": "Horizontal position of the second player's counter (0 = left, 1 = right).",
+				"min": 0,
+				"max": 1,
 				"control": {
 					"arrows": true,
-					"arrow-step": 2,
+					"arrow-step": 0.01,
 					"big-arrows": true,
-					"big-arrow-step": 10,
+					"big-arrow-step": 0.1,
 					"slider": true,
-					"slider-step": 1,
+					"slider-step": 0.01,
 					"input": true
 				}
 			},
 			"YpositionPlayer2":{
 				"type": "float",
 				"name": "Position Y",
-				"default": 260,
-				"description": "Y position of the second player's counter on the screen.",
-				"min": 10,
-				"max": 310,
+				"default": 0.85,
+				"description": "Vertical position of the second player's counter (0 = bottom, 1 = top).",
+				"min": 0,
+				"max": 1,
 				"control": {
 					"arrows": true,
-					"arrow-step": 2,
+					"arrow-step": 0.01,
 					"big-arrows": true,
-					"big-arrow-step": 10,
+					"big-arrow-step": 0.1,
 					"slider": true,
-					"slider-step": 1,
+					"slider-step": 0.01,
 					"input": true
 				}
 			}

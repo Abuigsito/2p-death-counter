@@ -50,21 +50,19 @@ class $modify(MyPlayLayer, PlayLayer) {
         DeathCounterState::p1DeathCounted = false;
         DeathCounterState::p2DeathCounted = false;
 
-        // get player names from the amazing settings
         m_fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
         m_fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
 
-        // same but colors
         auto color1 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer1");
         auto color2 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer2");
 
-        // positionnnnnnn (can someone explain why these are on yellow?)
-        float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1");
-        float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1");
-        float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2");
-        float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2");
+        // can someone explain why is this yellow? well idc it works
+        auto winSize = CCDirector::get()->getWinSize();
+        float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1") * winSize.width;
+        float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1") * winSize.height;
+        float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2") * winSize.width;
+        float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2") * winSize.height;
 
-        // player 1 counter
         m_fields->p1Counter = CCLabelBMFont::create(
             fmt::format("{}: 0", m_fields->namePlayer1).c_str(), "bigFont.fnt"
         );
@@ -74,7 +72,6 @@ class $modify(MyPlayLayer, PlayLayer) {
         m_fields->p1Counter->setOpacity(color1.a);
         this->addChild(m_fields->p1Counter);
 
-        // player 2 counter
         m_fields->p2Counter = CCLabelBMFont::create(
             fmt::format("{}: 0", m_fields->namePlayer2).c_str(), "bigFont.fnt"
         );
@@ -112,20 +109,18 @@ class $modify(MyPlayLayer, PlayLayer) {
     }
 
     void applySettings() {
-        // update names
         m_fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
         m_fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
 
-        // update colors
         auto color1 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer1");
         auto color2 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer2");
 
-        // update positions
-        // idk why are these on yellow if they work
-        float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1");
-        float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1");
-        float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2");
-        float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2");
+        // yeah, there is a warning here but idk
+        auto winSize = CCDirector::get()->getWinSize();
+        float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1") * winSize.width;
+        float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1") * winSize.height;
+        float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2") * winSize.width;
+        float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2") * winSize.height;
 
         if (m_fields->p1Counter) {
             m_fields->p1Counter->setString(fmt::format("{}: {}", m_fields->namePlayer1, DeathCounterState::p1Deaths).c_str());
