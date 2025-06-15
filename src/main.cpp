@@ -59,7 +59,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         auto color1 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer1");
         auto color2 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer2");
 
-        // can someone explain why is this yellow? well idc it works
+        // can someone explain why is this yellow? well, idc bc it works
         auto winSize = CCDirector::get()->getWinSize();
         float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1") * winSize.width;
         float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1") * winSize.height;
