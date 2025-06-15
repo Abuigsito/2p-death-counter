@@ -1,0 +1,132 @@
+{
+	"geode": "4.5.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "abuigsito.2p_death_counter",
+	"name": "2P Death Counter",
+	"version": "v1.0.0-beta",
+	"developer": "Abuigsito",
+	"description": "This mod counts when one of the player dies!",
+	"tags": [
+		"interface",
+		"enhancement"
+	],
+	"resources": {
+		"sprites": [
+			"resources/erbotonsito.png"
+		]
+	},
+	"settings": {
+		"showCounter": {
+			"type": "bool",
+			"default": true,
+			"name": "Show Counter",
+			"description": "Show the death counter on the screen."
+			},
+			"settingsPlayer1":{
+				"type": "title",
+				"name": "Player 1 Settings"
+			},
+			"namePlayer1": {
+				"type": "string",
+				"default": "Player 1",
+				"name": "Player 1 Name",
+				"description": "Name of the first player."
+			},
+			"colorPlayer1": {
+				"type": "rgba",
+				"default": [255, 0, 0, 255],
+				"name": "Player 1 Color",
+				"description": "Color of the first player's counter."
+
+			},
+			"XpositionPlayer1":{
+				"type": "float",
+				"name": "Position X",
+				"default": 490,
+				"description": "X position of the first player's counter on the screen.",
+				"min": 5,
+				"max": 555,
+				"control": {
+					"arrows": true,
+					"arrow-step": 2,
+					"big-arrows": true,
+					"big-arrow-step": 10,
+					"slider": true,
+					"slider-step": 1,
+					"input": true
+				}
+			},
+			"YpositionPlayer1":{
+				"type": "float",
+				"name": "Position Y",
+				"default": 290,
+				"description": "Y position of the first player's counter on the screen.",
+				"min": 10,
+				"max": 310,
+				"control": {
+					"arrows": true,
+					"arrow-step": 2,
+					"big-arrows": true,
+					"big-arrow-step": 10,
+					"slider": true,
+					"slider-step": 1,
+					"input": true
+				}
+			},
+			"settingsPlayer2":{
+				"type": "title",
+				"name": "Player 2 Settings"
+			},
+			"namePlayer2": {
+				"type": "string",
+				"default": "Player 2",
+				"name": "Player 2 Name",
+				"description": "Name of the second player."
+			},
+			"colorPlayer2": {
+				"type": "rgba",
+				"default": [0, 0, 255, 255],
+				"name": "Player 2 Color",
+				"description": "Color of the second player's counter."
+			},
+				"XpositionPlayer2":{
+				"type": "float",
+				"name": "Position X",
+				"default": 490,
+				"description": "X position of the second player's counter on the screen.",
+				"min": 5,
+				"max": 555,
+				"control": {
+					"arrows": true,
+					"arrow-step": 2,
+					"big-arrows": true,
+					"big-arrow-step": 10,
+					"slider": true,
+					"slider-step": 1,
+					"input": true
+				}
+			},
+			"YpositionPlayer2":{
+				"type": "float",
+				"name": "Position Y",
+				"default": 260,
+				"description": "Y position of the second player's counter on the screen.",
+				"min": 10,
+				"max": 310,
+				"control": {
+					"arrows": true,
+					"arrow-step": 2,
+					"big-arrows": true,
+					"big-arrow-step": 10,
+					"slider": true,
+					"slider-step": 1,
+					"input": true
+				}
+			}
+	}
+}
