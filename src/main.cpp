@@ -47,6 +47,9 @@ class $modify(MyPlayLayer, PlayLayer) {
     bool init(GJGameLevel* level, bool p1, bool p2) {
         if (!PlayLayer::init(level, p1, p2)) return false;
 
+        DeathCounterState::p1Deaths = 0;
+        DeathCounterState::p2Deaths = 0;
+
         DeathCounterState::p1DeathCounted = false;
         DeathCounterState::p2DeathCounted = false;
 
@@ -172,11 +175,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         }
     }
 
-    void onQuit() {
-        PlayLayer::onQuit();
-        DeathCounterState::p1Deaths = 0;
-        DeathCounterState::p2Deaths = 0;
-    }
+
 };
 
 class $modify(MyPauseLayer, PauseLayer) {
