@@ -4,6 +4,7 @@
 #include <Geode/Bindings.hpp>
 #include <Geode/ui/GeodeUI.hpp>
 #include <Geode/loader/Setting.hpp>
+#include <Geode/utils/NodeIDs.hpp>
 
 using namespace geode::prelude;
 
@@ -53,40 +54,43 @@ class $modify(MyPlayLayer, PlayLayer) {
         DeathCounterState::p1DeathCounted = false;
         DeathCounterState::p2DeathCounted = false;
 
-        m_fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
-        m_fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
+        auto* fields = m_fields.self();
+
+        fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
+        fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
 
         auto color1 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer1");
         auto color2 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer2");
 
-        // can someone explain why is this yellow? well, idc bc it works
         auto winSize = CCDirector::get()->getWinSize();
         float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1") * winSize.width;
         float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1") * winSize.height;
         float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2") * winSize.width;
         float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2") * winSize.height;
 
-        m_fields->p1Counter = CCLabelBMFont::create(
-            fmt::format("{}: 0", m_fields->namePlayer1).c_str(), "bigFont.fnt"
+        fields->p1Counter = CCLabelBMFont::create(
+            fmt::format("{}: 0", fields->namePlayer1).c_str(), "bigFont.fnt"
         );
-        m_fields->p1Counter->setPosition(x1, y1);
-        m_fields->p1Counter->setScale(0.5f);
-        m_fields->p1Counter->setColor(ccColor3B{color1.r, color1.g, color1.b});
-        m_fields->p1Counter->setOpacity(color1.a);
-        this->addChild(m_fields->p1Counter);
+        fields->p1Counter->setPosition(x1, y1);
+        fields->p1Counter->setScale(0.5f);
+        fields->p1Counter->setColor(ccColor3B{color1.r, color1.g, color1.b});
+        fields->p1Counter->setOpacity(color1.a);
+        fields->p1Counter->setID("p1-death-counter");
+        this->addChild(fields->p1Counter);
 
-        m_fields->p2Counter = CCLabelBMFont::create(
-            fmt::format("{}: 0", m_fields->namePlayer2).c_str(), "bigFont.fnt"
+        fields->p2Counter = CCLabelBMFont::create(
+            fmt::format("{}: 0", fields->namePlayer2).c_str(), "bigFont.fnt"
         );
-        m_fields->p2Counter->setPosition(x2, y2);
-        m_fields->p2Counter->setScale(0.5f);
-        m_fields->p2Counter->setColor(ccColor3B{color2.r, color2.g, color2.b});
-        m_fields->p2Counter->setOpacity(color2.a);
-        m_fields->p2Counter->setVisible(m_player2 != nullptr);
-        this->addChild(m_fields->p2Counter);
+        fields->p2Counter->setPosition(x2, y2);
+        fields->p2Counter->setScale(0.5f);
+        fields->p2Counter->setColor(ccColor3B{color2.r, color2.g, color2.b});
+        fields->p2Counter->setOpacity(color2.a);
+        fields->p2Counter->setVisible(m_player2 != nullptr);
+        fields->p2Counter->setID("p2-death-counter");
+        this->addChild(fields->p2Counter);
 
         // settings changes thingy
-        m_fields->settingListener.reset(
+        fields->settingListener.reset(
             geode::listenForAllSettingChanges(
                 [this](std::shared_ptr<geode::SettingV3> setting) {
                     if (
@@ -112,30 +116,31 @@ class $modify(MyPlayLayer, PlayLayer) {
     }
 
     void applySettings() {
-        m_fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
-        m_fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
+        auto* fields = m_fields.self();
+
+        fields->namePlayer1 = Mod::get()->getSettingValue<std::string>("namePlayer1");
+        fields->namePlayer2 = Mod::get()->getSettingValue<std::string>("namePlayer2");
 
         auto color1 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer1");
         auto color2 = Mod::get()->getSettingValue<ccColor4B>("colorPlayer2");
 
-        // yeah, there is a warning here but idk
         auto winSize = CCDirector::get()->getWinSize();
         float x1 = Mod::get()->getSettingValue<float>("XpositionPlayer1") * winSize.width;
         float y1 = Mod::get()->getSettingValue<float>("YpositionPlayer1") * winSize.height;
         float x2 = Mod::get()->getSettingValue<float>("XpositionPlayer2") * winSize.width;
         float y2 = Mod::get()->getSettingValue<float>("YpositionPlayer2") * winSize.height;
 
-        if (m_fields->p1Counter) {
-            m_fields->p1Counter->setString(fmt::format("{}: {}", m_fields->namePlayer1, DeathCounterState::p1Deaths).c_str());
-            m_fields->p1Counter->setColor(ccColor3B{color1.r, color1.g, color1.b});
-            m_fields->p1Counter->setOpacity(color1.a);
-            m_fields->p1Counter->setPosition(x1, y1);
+        if (fields->p1Counter) {
+            fields->p1Counter->setString(fmt::format("{}: {}", fields->namePlayer1, DeathCounterState::p1Deaths).c_str());
+            fields->p1Counter->setColor(ccColor3B{color1.r, color1.g, color1.b});
+            fields->p1Counter->setOpacity(color1.a);
+            fields->p1Counter->setPosition(x1, y1);
         }
-        if (m_fields->p2Counter) {
-            m_fields->p2Counter->setString(fmt::format("{}: {}", m_fields->namePlayer2, DeathCounterState::p2Deaths).c_str());
-            m_fields->p2Counter->setColor(ccColor3B{color2.r, color2.g, color2.b});
-            m_fields->p2Counter->setOpacity(color2.a);
-            m_fields->p2Counter->setPosition(x2, y2);
+        if (fields->p2Counter) {
+            fields->p2Counter->setString(fmt::format("{}: {}", fields->namePlayer2, DeathCounterState::p2Deaths).c_str());
+            fields->p2Counter->setColor(ccColor3B{color2.r, color2.g, color2.b});
+            fields->p2Counter->setOpacity(color2.a);
+            fields->p2Counter->setPosition(x2, y2);
         }
         this->updateCountersVisibility();
     }
@@ -144,38 +149,43 @@ class $modify(MyPlayLayer, PlayLayer) {
         PlayLayer::resetLevel();
         DeathCounterState::p1DeathCounted = false;
         DeathCounterState::p2DeathCounted = false;
-        
-        if (m_fields->p1Counter) {
-            m_fields->p1Counter->setString(
-                fmt::format("{}: {}", m_fields->namePlayer1, DeathCounterState::p1Deaths).c_str()
+
+        auto* fields = m_fields.self();
+
+        if (fields->p1Counter) {
+            fields->p1Counter->setString(
+                fmt::format("{}: {}", fields->namePlayer1, DeathCounterState::p1Deaths).c_str()
             );
         }
-        if (m_fields->p2Counter) {
-            m_fields->p2Counter->setString(
-                fmt::format("{}: {}", m_fields->namePlayer2, DeathCounterState::p2Deaths).c_str()
+        if (fields->p2Counter) {
+            fields->p2Counter->setString(
+                fmt::format("{}: {}", fields->namePlayer2, DeathCounterState::p2Deaths).c_str()
             );
         }
     }
 
     void updateCountersVisibility() {
+        auto* fields = m_fields.self();
+
         bool visible = Mod::get()->getSettingValue<bool>("showCounter");
-        if (m_fields->p1Counter) {
-            m_fields->p1Counter->setVisible(visible);
+        if (fields->p1Counter) {
+            fields->p1Counter->setVisible(visible);
         }
-        if (m_fields->p2Counter) {
-            m_fields->p2Counter->setVisible(visible && m_player2 != nullptr);
+        if (fields->p2Counter) {
+            fields->p2Counter->setVisible(visible && m_player2 != nullptr);
         }
     }
 
     void update(float dt) {
         PlayLayer::update(dt);
-        if (m_fields->p2Counter) {
+
+        auto* fields = m_fields.self();
+
+        if (fields->p2Counter) {
             bool visible = Mod::get()->getSettingValue<bool>("showCounter");
-            m_fields->p2Counter->setVisible(visible && m_player2 != nullptr);
+            fields->p2Counter->setVisible(visible && m_player2 != nullptr);
         }
     }
-
-
 };
 
 class $modify(MyPauseLayer, PauseLayer) {
@@ -185,26 +195,29 @@ class $modify(MyPauseLayer, PauseLayer) {
 
     void customSetup() {
         PauseLayer::customSetup();
-        
+
+        auto* fields = m_fields.self();
+
         // this button was previously a toggle button LOL
         auto toggleBtnSprite = CCSprite::create("erbotonsito.png"_spr);
         toggleBtnSprite->setScale(0.7f);
-        
-        m_fields->toggleButton = CCMenuItemSpriteExtra::create(
+
+        fields->toggleButton = CCMenuItemSpriteExtra::create(
             toggleBtnSprite,
             this,
             menu_selector(MyPauseLayer::onToggleCounters)
         );
-        
+        // Add node ID for mod compatibility
+        fields->toggleButton->setID("death-counter-settings-btn");
+
         // put the button in the right menu
         if (auto menu = this->getChildByID("right-button-menu")) {
-            menu->addChild(m_fields->toggleButton);
+            menu->addChild(fields->toggleButton);
             menu->updateLayout();
         }
     }
 
     void onToggleCounters(CCObject* sender) {
-        // open the mod settings yaaaayyyy
         geode::openSettingsPopup(geode::Mod::get(), false);
     }
 };
