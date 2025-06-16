@@ -76,7 +76,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         fields->p1Counter->setColor(ccColor3B{color1.r, color1.g, color1.b});
         fields->p1Counter->setOpacity(color1.a);
         fields->p1Counter->setID("p1-death-counter");
-        this->addChild(fields->p1Counter);
+        this->addChild(fields->p1Counter, 1);
 
         fields->p2Counter = CCLabelBMFont::create(
             fmt::format("{}: 0", fields->namePlayer2).c_str(), "bigFont.fnt"
@@ -87,7 +87,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         fields->p2Counter->setOpacity(color2.a);
         fields->p2Counter->setVisible(m_player2 != nullptr);
         fields->p2Counter->setID("p2-death-counter");
-        this->addChild(fields->p2Counter);
+        this->addChild(fields->p2Counter, 1);
 
         // settings changes thingy
         fields->settingListener.reset(
