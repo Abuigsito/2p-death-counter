@@ -57,7 +57,7 @@
 			"XpositionPlayer1":{
 				"type": "float",
 				"name": "Position X",
-				"default": 0.85,
+				"default": 0.15,
 				"description": "Horizontal position of the first player's counter (0 = left, 1 = right).",
 				"min": 0,
 				"max": 1,
@@ -74,7 +74,7 @@
 			"YpositionPlayer1":{
 				"type": "float",
 				"name": "Position Y",
-				"default": 0.90,
+				"default": 0.97,
 				"description": "Vertical position of the first player's counter (0 = bottom, 1 = top).",
 				"min": 0,
 				"max": 1,
@@ -124,7 +124,7 @@
 			"YpositionPlayer2":{
 				"type": "float",
 				"name": "Position Y",
-				"default": 0.85,
+				"default": 0.97,
 				"description": "Vertical position of the second player's counter (0 = bottom, 1 = top).",
 				"min": 0,
 				"max": 1,
