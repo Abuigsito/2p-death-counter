@@ -207,10 +207,8 @@ class $modify(MyPauseLayer, PauseLayer) {
             this,
             menu_selector(MyPauseLayer::onToggleCounters)
         );
-        // Add node ID for mod compatibility
         fields->toggleButton->setID("death-counter-settings-btn");
 
-        // put the button in the right menu
         if (auto menu = this->getChildByID("right-button-menu")) {
             menu->addChild(fields->toggleButton);
             menu->updateLayout();
