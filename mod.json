@@ -1,14 +1,14 @@
 {
-	"geode": "4.6.1",
+	"geode": "5.11.1",
 	"gd": {
-		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
 	},
 	"id": "abuigsito.2p_death_counter",
 	"name": "2P Death Counter",
-	"version": "v1.0.0-beta",
+	"version": "v1.1.0-beta",
 	"developer": "Abuigsito",
 	"description": "This mod counts when one of the player dies!",
 	"issues": {

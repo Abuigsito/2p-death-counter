@@ -2,6 +2,7 @@
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/Bindings.hpp>
+#include <Geode/loader/Event.hpp>
 #include <Geode/ui/GeodeUI.hpp>
 #include <Geode/loader/Setting.hpp>
 #include <Geode/utils/NodeIDs.hpp>
@@ -18,19 +19,17 @@ struct DeathCounterState {
 // OK PLEASE IGNORE THAT P1 COUNTER IS M_PLAYER2
 // I KNOW THAT LOOKS WEIRD BUT SOMEHOW IT WORKS
 class $modify(PlayerObject) {
-    void playerDestroyed(bool p0) {
-        PlayerObject::playerDestroyed(p0);
-        
-        if (p0) {
-            if (auto* pl = PlayLayer::get()) {
-                if (this == pl->m_player2 && !DeathCounterState::p1DeathCounted) {
-                    DeathCounterState::p1Deaths++;
-                    DeathCounterState::p1DeathCounted = true;
-                }
-                else if (this == pl->m_player1 && !DeathCounterState::p2DeathCounted) {
-                    DeathCounterState::p2Deaths++;
-                    DeathCounterState::p2DeathCounted = true;
-                }
+    void playerDestroyed(bool noEffects) {
+        PlayerObject::playerDestroyed(noEffects);
+
+        if (auto* pl = PlayLayer::get()) {
+            if (this == pl->m_player2 && !DeathCounterState::p1DeathCounted) {
+                DeathCounterState::p1Deaths++;
+                DeathCounterState::p1DeathCounted = true;
+            }
+            else if (this == pl->m_player1 && !DeathCounterState::p2DeathCounted) {
+                DeathCounterState::p2Deaths++;
+                DeathCounterState::p2DeathCounted = true;
             }
         }
     }
@@ -42,7 +41,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         CCLabelBMFont* p2Counter = nullptr;
         std::string namePlayer1;
         std::string namePlayer2;
-        std::unique_ptr<geode::EventListener<geode::SettingChangedFilterV3>> settingListener;
+        std::unique_ptr<geode::ListenerHandle> settingListener;
     };
 
     bool init(GJGameLevel* level, bool p1, bool p2) {
@@ -92,17 +91,17 @@ class $modify(MyPlayLayer, PlayLayer) {
         // settings changes thingy
         fields->settingListener.reset(
             geode::listenForAllSettingChanges(
-                [this](std::shared_ptr<geode::SettingV3> setting) {
+                [this](std::string_view key, std::shared_ptr<geode::SettingV3>) {
                     if (
-                        setting->getKey() == "showCounter" ||
-                        setting->getKey() == "namePlayer1" ||
-                        setting->getKey() == "namePlayer2" ||
-                        setting->getKey() == "colorPlayer1" ||
-                        setting->getKey() == "colorPlayer2" ||
-                        setting->getKey() == "XpositionPlayer1" ||
-                        setting->getKey() == "YpositionPlayer1" ||
-                        setting->getKey() == "XpositionPlayer2" ||
-                        setting->getKey() == "YpositionPlayer2"
+                        key == "showCounter" ||
+                        key == "namePlayer1" ||
+                        key == "namePlayer2" ||
+                        key == "colorPlayer1" ||
+                        key == "colorPlayer2" ||
+                        key == "XpositionPlayer1" ||
+                        key == "YpositionPlayer1" ||
+                        key == "XpositionPlayer2" ||
+                        key == "YpositionPlayer2"
                     ) {
                         this->applySettings();
                     }
